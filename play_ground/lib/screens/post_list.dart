@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:play_ground/screens/post_details.dart';
 
 import 'package:play_ground/services/helper.dart';
 
@@ -35,19 +36,47 @@ class PostsList extends StatelessWidget {
                 itemCount: posts.length,
                 itemBuilder: (context, index) {
                   Map thisItem = posts[index];
-                  return ListTile(
-                    title: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        '${thisItem['title']}',
-                        style: TextStyle(
-                          color: Colors.blueGrey.shade900,
-                          fontSize: 25,
+                  return Card(
+                    elevation: 10,
+                    child: ListTile(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) =>
+                              PostDetails(thisItem['id'].toString()),
+                        ));
+                      },
+                      title: Card(
+                        // margin: EdgeInsets.zero,
+                        color: Colors.amber.shade200,
+                        elevation: 5,
+                        shadowColor: Colors.black38,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(40),
+                          ),
                         ),
-                        textAlign: TextAlign.center,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(30, 8, 9, 8),
+                          child: Text(
+                            '${thisItem['title']}',
+                            style: TextStyle(
+                              color: Colors.blueGrey.shade900,
+                              fontSize: 25,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                      subtitle: Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 10, 8, 10),
+                        child: Text(
+                          '${thisItem['body']}',
+                          style: const TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
                       ),
                     ),
-                    subtitle: Text('${thisItem['body']}'),
                   );
                 });
           }
