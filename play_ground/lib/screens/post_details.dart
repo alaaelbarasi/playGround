@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
+import 'package:play_ground/screens/edit_post.dart';
+import 'package:play_ground/screens/post_list.dart';
 import 'package:play_ground/services/helper.dart';
 
 class PostDetails extends StatelessWidget {
@@ -14,7 +14,16 @@ class PostDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Post"),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: const Text(
+            "Post",
+            style: TextStyle(
+              fontSize: 30,
+              color: Colors.amber,
+            ),
+          ),
+          centerTitle: true,
         ),
         body: FutureBuilder<Map>(
           future: _futurePost,
@@ -60,7 +69,11 @@ class PostDetails extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                             primary: Colors.teal.shade100,
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => EditPost(post),
+                            ));
+                          },
                           child: const ListTile(
                             trailing: Icon(Icons.edit),
                             title: Text(
@@ -81,7 +94,26 @@ class PostDetails extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                             primary: Colors.redAccent,
                           ),
-                          onPressed: () {},
+                          onPressed: () async {
+                            bool done = await Api().deleteItem(itemID);
+                            if (done) {
+                              // ignore: use_build_context_synchronously
+                              ScaffoldMessenger.of(context)
+                                  // ignore: prefer_const_constructors
+                                  .showSnackBar(SnackBar(
+                                content:
+                                    const Text("Post was deleted successfully"),
+                              ));
+
+                              Navigator.of(context).pop(MaterialPageRoute(
+                                builder: (context) => PostsList(),
+                              ));
+                            } else {
+                              // ignore: use_build_context_synchronously
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text("Try again")));
+                            }
+                          },
                           child: const ListTile(
                             trailing: Icon(Icons.delete),
                             title: Text(

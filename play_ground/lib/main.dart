@@ -16,6 +16,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'PlayGround',
       theme: ThemeData(
+        iconTheme: const IconThemeData(
+          color: Colors.amberAccent,
+        ),
         primarySwatch: Colors.blueGrey,
         fontFamily: GoogleFonts.tajawal().fontFamily,
       ),

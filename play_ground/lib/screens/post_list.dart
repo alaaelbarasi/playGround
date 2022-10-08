@@ -13,10 +13,13 @@ class PostsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         title: const Text(
           'Posts List',
           style: TextStyle(
             fontSize: 30,
+            color: Colors.amber,
           ),
         ),
         centerTitle: true,

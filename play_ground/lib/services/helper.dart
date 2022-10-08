@@ -50,7 +50,7 @@ class Api {
       },
     );
     if (response.statusCode == 200) {
-      done = response.body.isEmpty;
+      done = response.body.isNotEmpty;
     }
     return done;
   }
