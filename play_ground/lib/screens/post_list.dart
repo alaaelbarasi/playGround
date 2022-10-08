@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:play_ground/screens/add_post.dart';
 import 'package:play_ground/screens/post_details.dart';
 
 import 'package:play_ground/services/helper.dart';
@@ -24,6 +25,15 @@ class PostsList extends StatelessWidget {
         ),
         centerTitle: true,
       ),
+      floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => AddPost(),
+              ),
+            );
+          }),
       body: FutureBuilder<List<Map>>(
         future: _futurePosts,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
